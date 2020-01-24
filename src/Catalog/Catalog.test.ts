@@ -26,11 +26,35 @@ describe("Catalog", () => {
   it("should transform the list of items into an object", () => {
     const catalog = new Catalog([mbp, atv, vga, ipd])
 
-    expect(catalog.items).toMatchObject({
+    expect(catalog).toMatchObject({
       mbp: { ...mbp },
       atv: { ...atv },
       vga: { ...vga },
       ipd: { ...ipd },
     })
+  })
+
+  it("should not be possible to change the value of an item in the Catalog", () => {
+    const catalog = new Catalog([mbp, atv])
+
+    expect(() => {
+      catalog["atv"] = vga
+    }).toThrow()
+  })
+
+  it("should not be possible to remove an item from the catalog", () => {
+    const catalog = new Catalog([mbp, atv])
+
+    expect(() => {
+      delete catalog.atv
+    }).toThrow()
+  })
+
+  it("should not be possible to add an item to the catalog", () => {
+    const catalog = new Catalog([mbp, atv])
+
+    expect(() => {
+      catalog["ipd"] = ipd
+    }).toThrow()
   })
 })
