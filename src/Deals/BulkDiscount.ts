@@ -12,27 +12,21 @@ interface BulkDiscountInterface {
 }
 
 export class BulkDiscount extends Deal {
-  constructor(bulkDeal: BulkDiscountInterface) {
-    const shouldApplyDiscount = (bulkDeal: BulkDiscountInterface) => (
-      purchase: Purchase
-    ): boolean => {
-      const { sku, requiredQuantity } = bulkDeal.deal
-
-      return (purchase.items[sku] || 0) >= requiredQuantity
-    }
-
-    const applyDiscount = ({ catalog, deal }: BulkDiscountInterface) => (
-      purchase: Purchase
-    ): number => {
-      const { sku, discountedUnitPrice } = deal
-      const priceDifference = discountedUnitPrice - catalog[sku].price
-
-      return priceDifference * purchase.items[sku]
-    }
-
+  constructor({ catalog, deal }: BulkDiscountInterface) {
+    const { sku, discountedUnitPrice } = deal
     super({
-      applyDiscount: applyDiscount(bulkDeal),
-      shouldApplyDiscount: shouldApplyDiscount(bulkDeal),
+      applyDiscount: ({ items }) => {
+        const purchasedQuantity = items[sku]
+        const priceDifference = discountedUnitPrice - catalog[sku].price
+
+        return priceDifference * purchasedQuantity
+      },
+      shouldApplyDiscount: ({ items }) => {
+        const { sku, requiredQuantity } = deal
+        const purchasedQuantity = items[sku] || 0
+
+        return purchasedQuantity >= requiredQuantity
+      },
     })
   }
 }
