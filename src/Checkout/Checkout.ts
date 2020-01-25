@@ -17,9 +17,9 @@ export interface PricingRules {
     price: number
   }[]
   deals?: {
-    bulkDiscount: BulkDiscountInterface["deal"][]
-    bundleDiscount: BundleDiscountInterface["deal"][]
-    xForThePriceOfY: XForThePriceOfYInterface["deal"][]
+    bulkDiscount?: BulkDiscountInterface["deal"][]
+    bundleDiscount?: BundleDiscountInterface["deal"][]
+    xForThePriceOfY?: XForThePriceOfYInterface["deal"][]
   }
 }
 
