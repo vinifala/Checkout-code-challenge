@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "exec": "node ./dist/index.js",
     "lint": "eslint .",
     "prettier": "prettier --write \"**/*.{ts,js}\"",
     "test": "jest"
