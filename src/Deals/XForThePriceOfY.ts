@@ -1,7 +1,7 @@
 import { Catalog } from "../Catalog"
 import { Deal } from "./"
 
-interface XForThePriceOfYInterface {
+export interface XForThePriceOfYInterface {
   catalog: Catalog
   deal: {
     sku: keyof Catalog

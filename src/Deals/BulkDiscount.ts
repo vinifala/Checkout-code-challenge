@@ -1,7 +1,7 @@
 import { Deal } from "./Deal"
 import { Catalog } from "../Catalog"
 
-interface BulkDiscountInterface {
+export interface BulkDiscountInterface {
   catalog: Catalog
   deal: {
     discountedUnitPrice: number

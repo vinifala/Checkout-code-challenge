@@ -1,4 +1,4 @@
 export { Deal } from "./Deal"
-export { BulkDiscount } from "./BulkDiscount"
-export { BundleDiscount } from "./BundleDiscount"
-export { XForThePriceOfY } from "./XForThePriceOfY"
+export { BulkDiscount, BulkDiscountInterface } from "./BulkDiscount"
+export { BundleDiscount, BundleDiscountInterface } from "./BundleDiscount"
+export { XForThePriceOfY, XForThePriceOfYInterface } from "./XForThePriceOfY"
