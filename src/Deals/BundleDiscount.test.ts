@@ -47,7 +47,7 @@ describe("Gives an item for free when something else is purchased", () => {
         .add("atv")
         .add("vga")
 
-      expect(deal.discount(purchase)).toBeCloseTo(30)
+      expect(deal.discount(purchase)).toBeCloseTo(-30)
     })
     it("should apply the discount once when mbp is purchased twice but there's only one vga", () => {
       const purchase = new Purchase()
@@ -56,7 +56,7 @@ describe("Gives an item for free when something else is purchased", () => {
         .add("vga")
         .add("mbp")
 
-      expect(deal.discount(purchase)).toBeCloseTo(30)
+      expect(deal.discount(purchase)).toBeCloseTo(-30)
     })
     it("should apply the discount twicw when mbp is purchased twice and there's 3 vga(s)", () => {
       const purchase = new Purchase()
@@ -67,7 +67,7 @@ describe("Gives an item for free when something else is purchased", () => {
         .add("vga")
         .add("mbp")
 
-      expect(deal.discount(purchase)).toBeCloseTo(60)
+      expect(deal.discount(purchase)).toBeCloseTo(-60)
     })
   })
   it("should not apply the discount", () => {

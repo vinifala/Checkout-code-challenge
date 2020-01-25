@@ -1,7 +1,7 @@
 import { Deal } from "./Deal"
 import { Catalog } from "../Catalog"
 
-interface BundleDiscountInterface {
+export interface BundleDiscountInterface {
   catalog: Catalog
   deal: {
     requiredItems: {
@@ -26,7 +26,7 @@ export class BundleDiscount extends Deal {
         const freeItemPrice = catalog[freeItem.sku].price
 
         return (
-          Math.min(
+          -Math.min(
             Math.floor(requiredPurchased / requiredQuantity),
             freePurchased
           ) * freeItemPrice
