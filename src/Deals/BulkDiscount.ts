@@ -1,11 +1,10 @@
 import { Deal } from "./Deal"
 import { Catalog } from "../Catalog"
-import { Purchase } from "../Purchase"
 
 interface BulkDiscountInterface {
   catalog: Catalog
   deal: {
-    discountedUnitPrice
+    discountedUnitPrice: number
     requiredQuantity: number
     sku: keyof Catalog
   }
