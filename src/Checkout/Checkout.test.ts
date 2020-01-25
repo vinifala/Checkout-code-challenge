@@ -45,6 +45,33 @@ describe("Le Checkout", () => {
   })
 
   describe("Checkout total", () => {
+    it("should round to two places after the decimal point", () => {
+      const co = new Checkout({
+        items: [ipd, atv, mbp, vga],
+        deals: {
+          // 10% discount on the second MacBook Pro
+          xForThePriceOfY: [
+            {
+              sku: "mbp",
+              x: 2,
+              y: 1.9,
+            },
+          ],
+        },
+      })
+
+      co.scan("mbp")
+      co.scan("mbp")
+      co.scan("ipd")
+
+      expect(
+        co
+          .total()
+          .toString()
+          .split(".")[1].length
+      ).toBeLessThan(3)
+      expect(co.total()).toBeCloseTo(3209.97)
+    })
     describe("With no Deals", () => {
       it("should be zero when cart is empty", () => {
         const co = new Checkout({

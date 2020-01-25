@@ -73,6 +73,6 @@ export class Checkout {
       0
     )
 
-    return subtotal + discounts
+    return Math.round((subtotal + discounts) * 100) / 100
   }
 }
