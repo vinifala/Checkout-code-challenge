@@ -1,5 +1,6 @@
 import { Deal } from "./Deal"
 import { Catalog } from "../Catalog"
+import { Purchase } from "../Purchase"
 
 export interface BundleDiscountInterface {
   catalog: Catalog
@@ -20,9 +21,9 @@ export class BundleDiscount extends Deal {
     const requiredQuantity = requiredItems.quantity
 
     super({
-      applyDiscount: ({ items }) => {
-        const requiredPurchased = items[requiredItems.sku]
-        const freePurchased = items[freeItem.sku] || 0
+      applyDiscount: (purchase: Purchase): number => {
+        const requiredPurchased = purchase.quantityOf(requiredItems.sku)
+        const freePurchased = purchase.quantityOf(freeItem.sku)
         const freeItemPrice = catalog[freeItem.sku].price
 
         return (
@@ -32,9 +33,9 @@ export class BundleDiscount extends Deal {
           ) * freeItemPrice
         )
       },
-      shouldApplyDiscount: ({ items }) => {
-        const requiredPurchased = items[requiredItems.sku] || 0
-        const freePurchased = items[freeItem.sku] || 0
+      shouldApplyDiscount: (purchase: Purchase): boolean => {
+        const requiredPurchased = purchase.quantityOf(requiredItems.sku)
+        const freePurchased = purchase.quantityOf(freeItem.sku)
 
         return requiredPurchased >= requiredQuantity && freePurchased > 0
       },

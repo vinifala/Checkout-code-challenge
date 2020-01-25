@@ -1,23 +1,30 @@
+import { Catalog } from "../Catalog"
 export class Purchase {
-  private _items: Record<string, number>
+  private items: Record<keyof Catalog, number>
 
   constructor() {
-    this._items = {}
+    this.items = {}
   }
 
   add(sku: string): this {
-    if (!this._items[sku]) {
-      this._items[sku] = 1
+    if (!this.items[sku]) {
+      this.items[sku] = 1
     } else {
-      this._items[sku]++
+      this.items[sku]++
     }
 
     return this
   }
 
-  get items(): Purchase["_items"] | null {
-    // ShoppingCart.items returns a copy of this._items to prevent the private
-    // _items object to be changed outside the class
-    return { ...this._items }
+  quantityOf(sku: keyof Purchase["items"]): number {
+    return this.items[sku] || 0
+  }
+
+  get entries(): [keyof Purchase["items"], number][] {
+    return Object.keys(this.items).reduce((acc, sku) => {
+      acc.push([sku, this.quantityOf(sku)])
+
+      return acc
+    }, [])
   }
 }

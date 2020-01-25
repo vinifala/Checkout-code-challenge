@@ -1,5 +1,6 @@
 import { Catalog } from "../Catalog"
 import { Deal } from "./"
+import { Purchase } from "../Purchase"
 
 export interface XForThePriceOfYInterface {
   catalog: Catalog
@@ -21,13 +22,13 @@ export class XForThePriceOfY extends Deal {
     }
 
     super({
-      shouldApplyDiscount: ({ items }) => {
-        const quantityPurchased = items[sku] || 0
+      shouldApplyDiscount: (purchase: Purchase) => {
+        const quantityPurchased = purchase.quantityOf(sku)
 
         return quantityPurchased >= x
       },
-      applyDiscount: ({ items }) => {
-        const quantityPurchased = items[sku] || 0
+      applyDiscount: (purchase: Purchase) => {
+        const quantityPurchased = purchase.quantityOf(sku)
         const labelPrice = catalog[sku].price
         const discountedUnits = y - x
 

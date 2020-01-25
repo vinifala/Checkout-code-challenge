@@ -1,6 +1,6 @@
 import { Item } from "../Item"
 
-export class Catalog implements Record<string, Item> {
+export class Catalog implements Record<Item["sku"], Item> {
   [x: string]: Item
 
   constructor(items: Item[]) {

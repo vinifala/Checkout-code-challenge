@@ -60,10 +60,11 @@ export class Checkout {
   }
 
   total(): number {
-    const { items } = this.purchase
+    const { entries } = this.purchase
 
-    const subtotal = Object.keys(items).reduce(
-      (acc, key): number => acc + items[key] * this.catalog[key].price,
+    const subtotal = entries.reduce(
+      (acc, [sku, quantity]): number =>
+        acc + quantity * this.catalog[sku].price,
       0
     )
 
