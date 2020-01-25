@@ -40,13 +40,35 @@ describe("Gives an item for free when something else is purchased", () => {
     },
   })
 
-  it("should apply the discount", () => {
-    const purchase = new Purchase()
-      .add("mbp")
-      .add("atv")
-      .add("vga")
+  describe("Apply the discount", () => {
+    it("should apply the discount when both are purchased once", () => {
+      const purchase = new Purchase()
+        .add("mbp")
+        .add("atv")
+        .add("vga")
 
-    expect(deal.discount(purchase)).toBeCloseTo(30)
+      expect(deal.discount(purchase)).toBeCloseTo(30)
+    })
+    it("should apply the discount once when mbp is purchased twice but there's only one vga", () => {
+      const purchase = new Purchase()
+        .add("mbp")
+        .add("atv")
+        .add("vga")
+        .add("mbp")
+
+      expect(deal.discount(purchase)).toBeCloseTo(30)
+    })
+    it("should apply the discount twicw when mbp is purchased twice and there's 3 vga(s)", () => {
+      const purchase = new Purchase()
+        .add("vga")
+        .add("mbp")
+        .add("vga")
+        .add("atv")
+        .add("vga")
+        .add("mbp")
+
+      expect(deal.discount(purchase)).toBeCloseTo(60)
+    })
   })
   it("should not apply the discount", () => {
     const purchase = new Purchase()
